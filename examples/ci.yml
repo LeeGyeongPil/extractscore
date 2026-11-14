@@ -1,0 +1,24 @@
+# Example: gate extraction quality in your own repository's CI.
+# Copy to .github/workflows/extraction-quality.yml and adjust the paths.
+name: extraction-quality
+on: [pull_request]
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v10.3.3
+      # Fails (exit 1) when any field's F1 is below 0.90, and writes a Markdown table.
+      - name: Score the extraction run
+        run: |
+          uvx extractscore score eval/gold.jsonl eval/pred.jsonl \
+            --config eval/fields.toml --min-f1 0.90 \
+            --format md --out report.md
+      - name: Show the report in the job summary
+        if: always()
+        run: cat report.md >> "$GITHUB_STEP_SUMMARY"
+      # Compare with the predictions from the main branch and block regressions.
+      - name: Compare with the baseline run
+        run: |
+          uvx extractscore diff eval/gold.jsonl eval/pred_main.jsonl eval/pred.jsonl \
+            --config eval/fields.toml --fail-on-regression
