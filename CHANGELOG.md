@@ -5,6 +5,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-14
+
+### Fixed
+- Input files and config files (JSON, TOML) that start with a UTF-8 BOM are now read correctly instead of mis-scoring the first document or failing with exit code 2.
+
 ## [0.1.0] - 2026-11-14
 
 ### Added
@@ -20,5 +25,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - Bundled practice mock (hand-written predictions, no model is called): `extractscore demo`, `demo --export DIR`.
 - Zero runtime dependencies; Python 3.11 or newer.
 
-[Unreleased]: https://github.com/LeeGyeongPil/extractscore/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/LeeGyeongPil/extractscore/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/LeeGyeongPil/extractscore/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/LeeGyeongPil/extractscore/releases/tag/v0.1.0
