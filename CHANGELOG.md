@@ -5,6 +5,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-14
+
+### Fixed
+- English output now says "(1 document)" instead of "(1 documents)" when a run has a single document.
+
 ## [0.1.1] - 2026-11-14
 
 ### Fixed
@@ -25,6 +30,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - Bundled practice mock (hand-written predictions, no model is called): `extractscore demo`, `demo --export DIR`.
 - Zero runtime dependencies; Python 3.11 or newer.
 
-[Unreleased]: https://github.com/LeeGyeongPil/extractscore/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/LeeGyeongPil/extractscore/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/LeeGyeongPil/extractscore/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/LeeGyeongPil/extractscore/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/LeeGyeongPil/extractscore/releases/tag/v0.1.0
