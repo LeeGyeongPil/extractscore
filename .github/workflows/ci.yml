@@ -26,4 +26,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v10.3.3
       - run: uv build
-      - run: uv run --isolated --no-project --with ./dist/extractscore-0.1.0-py3-none-any.whl extractscore demo --lang en
+      - run: uv run --isolated --no-project --with ./dist/extractscore-*-py3-none-any.whl extractscore demo --lang en
