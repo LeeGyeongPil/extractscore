@@ -85,3 +85,41 @@ def test_null_values_never_raise():
     report = evaluate([{"id": "d", "a": None, "b": 1, "c": [None]}], [{"id": "d", "a": None, "b": None, "c": None}])
     assert report.fields["b"].counts.errors["missing"] == 1
     assert "a" not in report.fields and "c[]" not in report.fields
+
+
+BOM = b"\xef\xbb\xbf"
+_GOLD = b'{"id":"a","x":1}\n{"id":"b","x":2}\n'
+
+
+def test_bom_prediction_file(tmp_path):
+    gold = tmp_path / "g.jsonl"
+    pred = tmp_path / "p.jsonl"
+    gold.write_bytes(_GOLD)
+    pred.write_bytes(BOM + _GOLD)
+    report = evaluate_files(gold, pred)
+    assert report.parse_failures == 0
+    counts = report.fields["x"].counts
+    assert (counts.tp, counts.fp, counts.fn) == (2, 0, 0)
+
+
+def test_bom_gold_file(tmp_path):
+    from extractscore.cli import main
+
+    gold = tmp_path / "g.jsonl"
+    pred = tmp_path / "p.jsonl"
+    gold.write_bytes(BOM + _GOLD)
+    pred.write_bytes(_GOLD)
+    assert main(["--lang", "en", "score", str(gold), str(pred)]) == 0
+
+
+def test_bom_config_json_and_toml(tmp_path):
+    from extractscore.cli import main
+
+    gold = tmp_path / "g.jsonl"
+    gold.write_bytes(_GOLD)
+    cj = tmp_path / "c.json"
+    cj.write_bytes(BOM + b'{"fields":{}}')
+    ct = tmp_path / "c.toml"
+    ct.write_bytes(BOM + b'[fields.x]\ntype = "number"\n')
+    for cfg in (cj, ct):
+        assert main(["--lang", "en", "score", str(gold), str(gold), "--config", str(cfg)]) == 0
