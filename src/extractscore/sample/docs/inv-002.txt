@@ -1,0 +1,9 @@
+INVOICE INV-0107
+Date: 2026-10-21
+From: Hanbit Stationery (Tax ID 220-81-12345)
+
+Notebook   x10   2,500
+Pen set    x4    3,000
+Stapler    x1   11,000
+
+Total: 48,000 KRW

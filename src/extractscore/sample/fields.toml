@@ -1,0 +1,27 @@
+# Field rules for the practice mock. Fields that are not listed get a type inferred from the gold value.
+# Dates are read with these formats, first match wins (11/03/2026 is read as month/day/year).
+date_formats = ["%Y-%m-%d", "%Y/%m/%d", "%m/%d/%Y", "%Y년 %m월 %d일", "%b %d, %Y"]
+
+# Ids are always exact: INV-0042 and INV-042 are different documents.
+[fields."invoice_no"]
+type = "id"
+
+[fields."receipt_no"]
+type = "id"
+
+# Amounts compare as numbers: "1,250.00", "$1,250" and 1250 are the same value.
+[fields."total"]
+type = "number"
+tol = 0.01
+
+# Fuzzy matching only where you ask for it: descriptions may carry a one-letter typo.
+[fields."line_items[].desc"]
+type = "text"
+fuzzy = 0.85
+
+[fields."payment_method"]
+type = "enum"
+
+# Free text we do not want to grade. Reported as "skipped", never as passing.
+[fields."notes"]
+ignore = true

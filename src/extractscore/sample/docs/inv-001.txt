@@ -1,0 +1,10 @@
+INVOICE INV-0042
+Date: 2026-11-03
+From: Acme Supplies (Tax ID 123-45-678)
+
+Widget A      x2   300.00
+Widget B      x1   450.00
+Service fee   x1   200.00
+
+Total: 1250.00
+Notes: Net 30, deliver to dock 2
