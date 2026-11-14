@@ -138,7 +138,7 @@ from extractscore import evaluate_files, Config
 | `check_gates(report, *, min_f1=None, field_min=None)` | CI 기준(전체·필드별) | `min_f1`, `{경로: 최소값}` | `list[GateFailure]` (비어 있으면 통과) |
 | `Config.from_file(path)` / `Config.from_dict(data)` / `Config(...)` | 필드 규칙 | `fields`, `match_threshold`, `date_formats`, `empty_as_null` | `Config` |
 | `FieldRule(type, tol, fuzzy, casefold, ignore)` | 필드 하나의 규칙 | | `FieldRule` |
-| `load_jsonl(path, *, strict, id_key="id")` | JSONL 읽기. `strict=False` 면 깨진 줄이 `ParseFailure` 가 됨 | 경로 | id 별 행 `dict` |
+| `load_jsonl(path, *, strict, id_key="id")` | JSONL 읽기(UTF-8, 맨 앞 BOM 허용). `strict=False` 면 깨진 줄이 `ParseFailure` 가 됨 | 경로 | id 별 행 `dict` |
 
 `Report` 는 `.fields`(경로별 `FieldStats`: `.precision`, `.recall`, `.f1`, `.counts`), `.micro`, `.macro_f1`, `.parse_failures`, `.skipped`, `.top_docs(n)`, `.to_dict()`, `.to_markdown(lang)` 를 가집니다. counts 는 `.tp`, `.fp`, `.fn`, `.errors`(범주별 개수)를 노출하고, 0/0 인 정밀도·재현율은 `None` 입니다.
 

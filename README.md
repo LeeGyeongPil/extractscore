@@ -138,7 +138,7 @@ from extractscore import evaluate_files, Config
 | `check_gates(report, *, min_f1=None, field_min=None)` | CI thresholds, overall and per field | `min_f1`, `{path: min}` | `list[GateFailure]` (empty means pass) |
 | `Config.from_file(path)` / `Config.from_dict(data)` / `Config(...)` | Field rules | `fields`, `match_threshold`, `date_formats`, `empty_as_null` | `Config` |
 | `FieldRule(type, tol, fuzzy, casefold, ignore)` | Rule for one field path | | `FieldRule` |
-| `load_jsonl(path, *, strict, id_key="id")` | Read a JSONL file; with `strict=False`, broken lines become `ParseFailure` | path | `dict` of id to row |
+| `load_jsonl(path, *, strict, id_key="id")` | Read a JSONL file (UTF-8, a leading BOM is accepted); with `strict=False`, broken lines become `ParseFailure` | path | `dict` of id to row |
 
 `Report` has `.fields` (per-path `FieldStats` with `.precision`, `.recall`, `.f1`, `.counts`), `.micro`, `.macro_f1`, `.parse_failures`, `.skipped`, `.top_docs(n)`, `.to_dict()` and `.to_markdown(lang)`. Counts expose `.tp`, `.fp`, `.fn` and `.errors` (category to number). A precision or recall of 0/0 is `None`.
 
