@@ -105,7 +105,7 @@ class Config:
         if suffix not in (".json", ".toml"):
             raise ConfigError("err_config_file", path=str(file), detail=ref("d_config_ext"))
         try:
-            text = file.read_bytes().decode("utf-8")
+            text = file.read_bytes().decode("utf-8-sig")
             data = json.loads(text) if suffix == ".json" else tomllib.loads(text)
         except (OSError, UnicodeDecodeError, ValueError) as exc:  # tomllib/json errors are ValueError
             raise ConfigError("err_config_file", path=str(file), detail=str(exc)) from exc

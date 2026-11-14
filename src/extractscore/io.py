@@ -37,7 +37,7 @@ def load_jsonl(path: str | Path, *, strict: bool, id_key: str = "id") -> dict[st
     """
     file = Path(path)
     try:
-        text = file.read_text(encoding="utf-8")
+        text = file.read_text(encoding="utf-8-sig")
     except (OSError, UnicodeDecodeError) as exc:
         raise InputError("err_input_file", path=str(file), detail=str(exc)) from exc
 
