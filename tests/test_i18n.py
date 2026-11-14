@@ -144,3 +144,30 @@ def test_score_table_separator_fits_120_columns(sample_dir, capsys):
     start = next(i for i, line in enumerate(lines) if line.startswith("Field "))
     table = lines[start:lines.index("", start)]  # header, separator and rows up to the first blank line
     assert max(len(line) for line in table) <= 100
+
+
+def _first_lines(sample_dir, tmp_path, count):
+    """Write the first ``count`` lines of gold and both predictions to tmp files."""
+    paths = []
+    for name in ("gold", "pred_a", "pred_b"):
+        lines = (sample_dir / f"{name}.jsonl").read_text(encoding="utf-8").splitlines()[:count]
+        path = tmp_path / f"{name}{count}.jsonl"
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        paths.append(str(path))
+    return paths
+
+
+@pytest.mark.parametrize("count,expected", [(1, "(1 document)"), (2, "(2 documents)")])
+@pytest.mark.parametrize("fmt", ["table", "md"])
+def test_titles_singular_plural(sample_dir, tmp_path, capsys, count, expected, fmt):
+    gold, a, b = _first_lines(sample_dir, tmp_path, count)
+    assert main(["score", gold, a, "--format", fmt, "--lang", "en"]) == 0
+    assert expected in capsys.readouterr().out.splitlines()[0]
+    assert main(["diff", gold, a, b, "--format", fmt, "--lang", "en"]) == 0
+    assert expected in capsys.readouterr().out.splitlines()[0]
+
+
+def test_korean_title_unchanged_for_one_document(sample_dir, tmp_path, capsys):
+    gold, a, _ = _first_lines(sample_dir, tmp_path, 1)
+    assert main(["score", gold, a, "--lang", "ko"]) == 0
+    assert "(문서 1건)" in capsys.readouterr().out

@@ -7,7 +7,7 @@ from typing import Sequence
 
 from .diff import Diff
 from .gate import GateFailure
-from .i18n import t
+from .i18n import t, title_diff, title_score
 from .score import Report
 
 
@@ -75,7 +75,7 @@ def _report_parts(report: Report, lang: str, top: int):
 def report_text(report: Report, lang: str = "en", top: int = 5, gate: Sequence[GateFailure] | None = None, gated: bool = False) -> str:
     """Terminal table."""
     header, rows, notes, tops = _report_parts(report, lang, top)
-    lines = [t(lang, "title_score", n=len(report.docs)), ""]
+    lines = [title_score(lang, len(report.docs)), ""]
     lines += _table(header, rows, range(2, 8))
     lines += ["", *notes]
     if tops:
@@ -89,7 +89,7 @@ def report_text(report: Report, lang: str = "en", top: int = 5, gate: Sequence[G
 def report_markdown(report: Report, lang: str = "en", top: int = 5, gate: Sequence[GateFailure] | None = None, gated: bool = False) -> str:
     """Markdown report (GitHub renders the table; paste it into a job summary)."""
     header, rows, notes, tops = _report_parts(report, lang, top)
-    lines = [f"## {t(lang, 'title_score', n=len(report.docs))}", ""]
+    lines = [f"## {title_score(lang, len(report.docs))}", ""]
     lines += _md_table(header, rows, range(2, 8))
     lines += [""] + [f"- {n}" for n in notes]
     if tops:
@@ -128,7 +128,7 @@ def _diff_parts(d: Diff, lang: str):
 
 def diff_text(d: Diff, lang: str = "en") -> str:
     header, rows, notes, flips = _diff_parts(d, lang)
-    lines = [t(lang, "title_diff", n=d.documents), ""]
+    lines = [title_diff(lang, d.documents), ""]
     lines += _table(header, rows, range(2, 5))
     lines += ["", *notes, ""]
     lines += [t(lang, "line_flips"), *[f"  {x}" for x in flips]] if flips else [t(lang, "line_no_flips")]
@@ -137,7 +137,7 @@ def diff_text(d: Diff, lang: str = "en") -> str:
 
 def diff_markdown(d: Diff, lang: str = "en") -> str:
     header, rows, notes, flips = _diff_parts(d, lang)
-    lines = [f"## {t(lang, 'title_diff', n=d.documents)}", ""]
+    lines = [f"## {title_diff(lang, d.documents)}", ""]
     lines += _md_table(header, rows, range(2, 5))
     lines += [""] + [f"- {n}" for n in notes] + [""]
     lines += [f"**{t(lang, 'line_flips')}**", ""] + [f"- {x}" for x in flips] if flips else [t(lang, "line_no_flips")]

@@ -18,6 +18,7 @@ MESSAGES: dict[str, dict[str, str]] = {
     "en": {
         # ---- table headings and report text
         "title_score": "Field-level extraction score ({n} documents)",
+        "title_score_one": "Field-level extraction score ({n} document)",
         "hdr_field": "Field",
         "hdr_type": "Type",
         "hdr_precision": "Precision",
@@ -44,6 +45,7 @@ MESSAGES: dict[str, dict[str, str]] = {
         "gate_fail": "FAIL: {n} field(s) below their minimum F1",
         # ---- diff
         "title_diff": "Run comparison, A -> B ({n} documents)",
+        "title_diff_one": "Run comparison, A -> B ({n} document)",
         "hdr_f1_a": "F1 A",
         "hdr_f1_b": "F1 B",
         "hdr_change": "Change",
@@ -137,6 +139,7 @@ MESSAGES: dict[str, dict[str, str]] = {
     },
     "ko": {
         "title_score": "필드 단위 추출 점수 (문서 {n}건)",
+        "title_score_one": "필드 단위 추출 점수 (문서 {n}건)",
         "hdr_field": "필드",
         "hdr_type": "형",
         "hdr_precision": "정밀도",
@@ -161,6 +164,7 @@ MESSAGES: dict[str, dict[str, str]] = {
         "gate_pass": "통과 PASS: 게이트 대상 필드가 모두 최소 F1 을 넘었습니다",
         "gate_fail": "실패 FAIL: 최소 F1 에 못 미친 필드 {n}개",
         "title_diff": "실행 비교, A -> B (문서 {n}건)",
+        "title_diff_one": "실행 비교, A -> B (문서 {n}건)",
         "hdr_f1_a": "F1 A",
         "hdr_f1_b": "F1 B",
         "hdr_change": "변화",
@@ -288,3 +292,13 @@ def t(lang: str, key: str, /, **params: object) -> str:
     """Look up ``key`` in ``lang`` (unknown languages fall back to English) and format it."""
     table = MESSAGES.get(lang, MESSAGES["en"])
     return table[key].format(**params) if params else table[key]
+
+
+def title_score(lang: str, n: int) -> str:
+    """Score title with the document count (singular form when ``n == 1``)."""
+    return t(lang, "title_score_one" if n == 1 else "title_score", n=n)
+
+
+def title_diff(lang: str, n: int) -> str:
+    """Diff title with the document count (singular form when ``n == 1``)."""
+    return t(lang, "title_diff_one" if n == 1 else "title_diff", n=n)
