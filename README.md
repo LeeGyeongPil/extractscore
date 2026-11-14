@@ -219,7 +219,7 @@ FAIL total: F1 0.909 < 0.99
 Read these before you trust a number.
 
 - **Slash dates are month first.** By default `11/03/2026` is read as 2026-11-03. If your documents write day first, put that format first in `fields.toml`: `date_formats = ["%d/%m/%Y", "%Y-%m-%d"]`. The first format that parses wins, so an ambiguous date follows the order you give.
-- **European decimal commas are not understood in 0.1.0.** `"1.250,00"` is not read as 1250, so a correct value is counted as `wrong_value`. Normalise such values before scoring.
+- **European decimal commas are not understood.** `"1.250,00"` is not read as 1250, so a correct value is counted as `wrong_value`. Normalise such values before scoring.
 - **A broken prediction line without a recoverable `id` is dropped.** If the line is cut off but the `id` can still be found, the document is scored as `parse_failure`. If it cannot, that document is scored as having no prediction at all.
 - **Big lists are slower.** List items are paired with a pure-Python Hungarian algorithm (cubic time). A warning appears above 500 unmatched items in one list; a 600-item list took roughly 2 to 9 s across runs on the test machine.
 
