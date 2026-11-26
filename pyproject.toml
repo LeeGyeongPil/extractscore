@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "extractscore"
-version = "0.1.2"
+version = "0.1.3"
 description = "Field-level precision/recall/F1 for LLM-extracted JSON, with before/after run comparison and CI gates."
 readme = "README.md"
 license = "MIT"
