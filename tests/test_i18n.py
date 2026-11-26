@@ -171,3 +171,9 @@ def test_korean_title_unchanged_for_one_document(sample_dir, tmp_path, capsys):
     gold, a, _ = _first_lines(sample_dir, tmp_path, 1)
     assert main(["score", gold, a, "--lang", "ko"]) == 0
     assert "(문서 1건)" in capsys.readouterr().out
+
+
+def test_help_lang_mentions_full_precedence():
+    for lang in ("en", "ko"):
+        text = t(lang, "help_lang")
+        assert "LC_ALL" in text and "LC_MESSAGES" in text
