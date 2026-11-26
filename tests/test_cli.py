@@ -95,7 +95,7 @@ def test_demo_and_export(capsys, tmp_path):
 def test_version_and_missing_command(capsys):
     with pytest.raises(SystemExit) as info:
         main(["--version"])
-    assert info.value.code == 0 and "extractscore 0.1.3" in capsys.readouterr().out
+    assert info.value.code == 0 and "extractscore 0.1.4" in capsys.readouterr().out
     with pytest.raises(SystemExit) as info:
         main([])
     assert info.value.code == 2
