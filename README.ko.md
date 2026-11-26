@@ -75,7 +75,7 @@ extractscore diff gold.jsonl pred_before.jsonl pred_after.jsonl --config fields.
 extractscore score gold.jsonl pred.jsonl --config fields.toml --min-f1 0.95
 ```
 
-종료 코드 0 은 통과, 1 은 게이트 실패, 2 는 입력·설정 오류입니다. 바로 쓸 수 있는 GitHub Actions 예시는 [`examples/ci.yml`](examples/ci.yml) 입니다. 이 예시는 `uvx extractscore` 를 쓰므로 PyPI 에 올라간 뒤에 동작합니다. 그 전에는 `uvx --from git+https://github.com/LeeGyeongPil/extractscore extractscore ...` 를 쓰세요.
+종료 코드 0 은 통과, 1 은 게이트 실패, 2 는 입력·설정 오류입니다. 바로 쓸 수 있는 GitHub Actions 예시는 [`examples/ci.yml`](examples/ci.yml) 입니다. 이 예시는 PyPI 의 패키지를 `uvx extractscore` 로 바로 실행하므로 따로 설치할 필요가 없습니다.
 
 ![다섯 필드에서 실패한 게이트](docs/images/02-gate.ko.png)
 

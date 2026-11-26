@@ -75,7 +75,7 @@ extractscore diff gold.jsonl pred_before.jsonl pred_after.jsonl --config fields.
 extractscore score gold.jsonl pred.jsonl --config fields.toml --min-f1 0.95
 ```
 
-Exit code 0 means pass, 1 means a gate failed, 2 means the input or config is invalid. A ready GitHub Actions workflow is in [`examples/ci.yml`](examples/ci.yml). It calls `uvx extractscore`, which works once the package is on PyPI; until then use `uvx --from git+https://github.com/LeeGyeongPil/extractscore extractscore ...`.
+Exit code 0 means pass, 1 means a gate failed, 2 means the input or config is invalid. A ready GitHub Actions workflow is in [`examples/ci.yml`](examples/ci.yml). It runs the PyPI package directly with `uvx extractscore`, so no install step is needed.
 
 ![A gate failing on five fields](docs/images/02-gate.png)
 
